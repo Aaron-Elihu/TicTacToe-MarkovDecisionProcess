@@ -8,8 +8,7 @@ agent.value_iteration()
 policy = {}
 for p in agent.policy:
     policy[str(p)] = agent.policy[p]
-
-with open("/Users/aaron/PycharmProjects/aiEngineering/reinforcementLearning/valueIteration.json", 'w') as json_file:
+with open("Policies/valueIteration.json", "w") as json_file:
     json.dump(policy, json_file)
 
 #  Policy Iteration
@@ -19,7 +18,6 @@ agent.policy_iteration()
 policy = {}
 for p in agent.policy:
     policy[str(p)] = agent.policy[p]
-
 with open("Policies/policyIteration.json", "w") as json_file:
     policy_json = {str(state): int(agent.policy[state]) if agent.policy[state] is not None else None for state in agent.policy}
     json.dump(policy_json, json_file)
