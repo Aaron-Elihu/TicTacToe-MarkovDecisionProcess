@@ -8,7 +8,7 @@ class MarkovDecisionProcess:
         self.states = set()
         self.T_states = set()
         self.actions = {}
-        self.policy = open("Policies/policyIteration.json", "r")
+        self.policy = open("OptimalPolicy/policyIteration.json", "r")
         self.policy = json.load(self.policy)
 
     # all possible states in game

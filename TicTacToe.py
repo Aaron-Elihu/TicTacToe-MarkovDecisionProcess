@@ -3,8 +3,8 @@ import tkinter.messagebox as messagebox
 import json
 
 
-class TicTacToeGUI:
-    def __init__(self, agent="valueIteration"):
+class TicTacToe:
+    def __init__(self, agent="ValueIteration"):
         self.window = tk.Tk()
         self.window.title("Tic Tac Toe")
         self.current_player = "X"  # default human player if going first
@@ -15,9 +15,9 @@ class TicTacToeGUI:
         self.agent = agent
         self.policy = {}
         if self.agent == "ValueIteration":
-            path = "Policies/valueIteration.json"
+            path = "OptimalPolicy/valueIteration.json"
         elif self.agent == "PolicyIteration":
-            path = "Policies/policyIteration.json"
+            path = "OptimalPolicy/policyIteration.json"
 
         with open(path, 'r') as json_file:
             self.policy = json.load(json_file)  # open json file as dictionary
@@ -117,5 +117,5 @@ class TicTacToeGUI:
 
 
 if __name__ == "__main__":
-    game = TicTacToeGUI("PolicyIteration")
+    game = TicTacToe("PolicyIteration")
     game.start()
