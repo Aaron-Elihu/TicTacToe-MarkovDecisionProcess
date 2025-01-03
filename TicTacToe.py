@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.messagebox as messagebox
 import json
+import os
 
 
 class TicTacToe:
@@ -15,9 +16,9 @@ class TicTacToe:
         self.agent = agent
         self.policy = {}
         if self.agent == "ValueIteration":
-            path = "OptimalPolicy/valueIteration.json"
+            path = str(os.getcwd())+"/"+"OptimalPolicy/valueIteration.json"
         elif self.agent == "PolicyIteration":
-            path = "OptimalPolicy/policyIteration.json"
+            path = str(os.getcwd())+"/"+"OptimalPolicy/policyIteration.json"
 
         with open(path, 'r') as json_file:
             self.policy = json.load(json_file)  # open json file as dictionary

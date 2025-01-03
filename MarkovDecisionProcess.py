@@ -1,13 +1,13 @@
 import numpy as np
 import json
-
+import os
 
 class MarkovDecisionProcess:
     def __init__(self):
         self.states = set()
         self.T_states = set()
         self.actions = {}
-        self.policy = open("OptimalPolicy/policyIteration.json", "r")
+        self.policy = open(str(os.getcwd())+"/"+"OptimalPolicy/policyIteration.json", "r")
         self.policy = json.load(self.policy)
 
     # all possible states in game
