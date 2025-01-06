@@ -34,7 +34,7 @@ class ValueIteration(MarkovDecisionProcess):
             epoch += 1
             delta = 0
             for s in tqdm(self.states):
-                if s in self.T_states:
+                if s in self.terminal_states:
                     self.value[s] = self.reward_function(s)
                     continue
                 v = self.value[s]
@@ -49,7 +49,7 @@ class ValueIteration(MarkovDecisionProcess):
                 break
 
             for s in self.states:
-                if s in self.T_states:
+                if s in self.terminal_states:
                     continue
                 best_action = None
                 best_value = float("-inf")
@@ -97,7 +97,7 @@ class PolicyIteration(MarkovDecisionProcess):
     def policy_improvement(self):
         for s in self.states:
             temp = self.policy[s]
-            if s in self.T_states:
+            if s in self.terminal_states:
                 continue
             best_action = None
             best_value = float("-inf")

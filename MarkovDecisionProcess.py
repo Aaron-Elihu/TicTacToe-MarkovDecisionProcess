@@ -6,7 +6,7 @@ import os
 class MarkovDecisionProcess:
     def __init__(self):
         self.states = set()
-        self.T_states = set()
+        self.terminal_states = set()
         self.actions = {}
         self.policy = open(str(os.getcwd())+"/"+"OptimalPolicy/policyIteration.json", "r")
         self.policy = json.load(self.policy)
@@ -23,7 +23,7 @@ class MarkovDecisionProcess:
             return all_board_config
 
         # define function to check if there are two winners at the same time
-        def _check_2_win(state):
+        def _check_if_two_winners(state):
             count_h, count_v = 0, 0
             for i in range(3):
                 if (state[i * 3] == state[i * 3 + 1] == state[i * 3 + 2] and state[i * 3] == 1) or (
@@ -48,7 +48,7 @@ class MarkovDecisionProcess:
             elif abs(state.count(1) - state.count(2)) > 1:
                 self.states.remove(state)
             # if there are 2 winners at the same time, then remove state
-            elif _check_2_win(state):
+            elif _check_if_two_winners(state):
                 self.states.remove(state)
 
     # terminal states
@@ -56,16 +56,16 @@ class MarkovDecisionProcess:
         # all possible states and updates states when game is over
         for state in self.states:
             if self.win(state):
-                self.T_states.add(state)
+                self.terminal_states.add(state)
             elif state.count(0) == 0:
-                self.T_states.add(state)
+                self.terminal_states.add(state)
 
     # action set
     def generate_actions(self):
         # define function for all possible states and update the possible actions for each state
         for state in self.states():
             self.actions[state] = None
-            if state not in self.T_states:
+            if state not in self.terminal_states:
                 self.actions[state] = []
                 for i in range(9):
                     if state[i] == 0:
@@ -75,7 +75,7 @@ class MarkovDecisionProcess:
     def transition_function(self, state):
         # define function that takes a state and returns the probability of each possible next state
         # if the game is over
-        if state in self.T_states:
+        if state in self.terminal_states:
             return 0
         # if the game is not over, return 1/(number of possible actions - 1) for 0
         else:
@@ -121,7 +121,7 @@ class MarkovDecisionProcess:
         # next state inspired from value iteration policy
 
         # if the game is over, return 0
-        if state in self.T_states:
+        if state in self.terminal_states:
             return 0
         # if the game is not over, return 1/number of possible actions for 0
         else:
